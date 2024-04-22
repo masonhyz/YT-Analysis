@@ -7,4 +7,6 @@ lib/
 lib64/
 __pycache__/
 *.py[cod]
-preprocess/
+preprocess/*
+!preprocess/videos.csv
+!preprocess/videos.csv
