@@ -1,12 +1,12 @@
 from flask import Flask, render_template
 import json
 import plotly
-import plots as plots
+from plots import *
 
 
 app = Flask(__name__)
 
-graph1JSON = json.dumps(plots.fig1, cls=plotly.utils.PlotlyJSONEncoder)
+graph1JSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
 
 
 @app.route("/")
