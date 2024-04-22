@@ -1,1 +1,10 @@
 preprocess/google_api_key.txt
+venv/
+env/
+bin/
+include/
+lib/
+lib64/
+__pycache__/
+*.py[cod]
+preprocess/
