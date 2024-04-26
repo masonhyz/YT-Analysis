@@ -1,7 +1,7 @@
 countryinfo==0.1.2
 Flask==3.0.2
 matplotlib==3.7.5
-numpy==1.26.4
+numpy==1.24.4
 pandas==2.0.3
 plotly==5.21.0
 pycountry==23.12.11
