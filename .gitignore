@@ -1,4 +1,4 @@
-preprocess/google_api_key.txt
+data/google_api_key.txt
 venv/
 env/
 bin/
@@ -7,7 +7,7 @@ lib/
 lib64/
 __pycache__/
 *.py[cod]
-preprocess/*
-!preprocess/videos.csv
-!preprocess/channels.csv
+data/*
+!data/videos.csv
+!data/channels.csv
 loggings/*

@@ -1,0 +1,1 @@
+This folder should contain the midterm files to show the web scraping process, but ignored due to deployment storage constraints. So it only contains the dataset. The data are obtained through YouTube Data API.

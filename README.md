@@ -1,0 +1,1 @@
+In this end-to-end data science project, I web-scraped YouTube data via Google Developers Console and deployed a data dashboard integrating interactive visualizations with Plotly Express. https://ytanalysis-mhyz.up.railway.app is the link to the data dashboard.
