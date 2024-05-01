@@ -11,7 +11,7 @@ def perform_tests(test_sample, control_sample):
 
     # Check for equal variances
     stat, p = levene(test_sample, control_sample)
-    print(f"Levene's test for equal variances: Stat={stat:.3f}, P-value={p:.3e}")
+    print(f"Levenne's test for equal variances: Stat={stat:.3f}, P-value={p:.3e}")
 
     # T-test
     stat, p = ttest_ind(test_sample, control_sample, equal_var=True)

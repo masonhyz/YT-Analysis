@@ -10,3 +10,4 @@ __pycache__/
 preprocess/*
 !preprocess/videos.csv
 !preprocess/channels.csv
+loggings/*

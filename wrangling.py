@@ -38,22 +38,23 @@ videos['durationCategory'] = pd.cut(videos['loggedSeconds'], bins=bin_edges, lab
 
 
 if __name__ == "__main__":
+    print(videos.info())
     # plot_histogram(channels['loggedVideos'], 'Log of Videos')
     # plot_histogram(channels['loggedViews'], 'Log of Views')
     # plot_histogram(channels['loggedSubscribers'], 'Log of Subscribers')
     #
-    # plot_histogram(videos['views'], 'Views')
-    # plot_histogram(videos['likes'], 'Likes')
-    # plot_histogram(videos['comments'], 'Comments')
-    # plot_histogram(videos['durationSeconds'], 'Duration')
+    plot_histogram(videos['views'], 'Views')
+    plot_histogram(videos['likes'], 'Likes')
+    plot_histogram(videos['comments'], 'Comments')
+    plot_histogram(videos['durationSeconds'], 'Duration')
     #
     # plot_histogram(videos['loggedViews'], 'Log of Video Views')
     # plot_histogram(videos['loggedLikes'], 'Log of Video Likes')
     # plot_histogram(videos['loggedComments'], 'Log of Video Comments')
     # plot_histogram(videos['loggedSeconds'], 'Log of Video Durations')
-
+    #
     # plot_barplot(videos['categoryName'], 'Category')
     # plot_barplot(videos['durationCategory'], 'Duration')
-    plot_barplot(videos['publishDay'], 'Published day of week')
+    # plot_barplot(videos['publishDay'], 'Published day of week')
 
 

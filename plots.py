@@ -1,8 +1,10 @@
 from utils import *
 import plotly.express as px
+import plotly.graph_objects as go
 from wrangling import videos, channels
 import random
 import ast
+from sklearn.linear_model import LinearRegression
 
 
 ## Fig 1
@@ -54,6 +56,51 @@ fig12.update_layout(
         color="DarkSlateGrey"
     )
 )
+
+
+X = channels[['loggedSubscribers', 'loggedVideos']]
+y = channels['loggedViews']
+model = LinearRegression()
+model.fit(X, y)
+# Generate a mesh grid for the surface
+x_range = np.linspace(X['loggedSubscribers'].min(), X['loggedSubscribers'].max(), 10)
+y_range = np.linspace(X['loggedVideos'].min(), X['loggedVideos'].max(), 10)
+xx, yy = np.meshgrid(x_range, y_range)
+zz = model.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+
+fig11new = px.scatter_3d(channels, x='loggedSubscribers', y='loggedVideos', z='loggedViews',
+                    title='Channel Total Views Scatterplot Against Channel Videos and Subscribers',
+                    labels={'loggedSubscribers': 'Log base 10 of Subscribers', 'loggedVideos': 'Log base 10 of Videos',
+                            'loggedViews': 'Log base 10 of Total Views'},
+                    log_x=False, log_y=False, log_z=False,
+                    color='loggedViews',
+                    color_continuous_scale=px.colors.sequential.Viridis)
+# Add the surface trace
+fig11new.add_trace(go.Surface(x=x_range,
+                              y=y_range,
+                              z=zz,
+                              name='Fit Surface',
+                              colorscale='Viridis',
+                              opacity=0.5,
+                              showscale=False)
+                   )
+fig11new.update_layout(
+    margin=dict(l=0, r=0, b=0, t=150),  # Reducing the plot margins
+    scene=dict(
+        # xaxis_title='Subscribers (log scale)',
+        # yaxis_title='Videos (log scale)',
+        # zaxis_title='Total Views (log scale)',
+        xaxis=dict(tickfont=dict(size=15), title_font=dict(size=20)),
+        yaxis=dict(tickfont=dict(size=15), title_font=dict(size=20)),
+        zaxis=dict(tickfont=dict(size=15), title_font=dict(size=20)),
+    ),
+    font=dict(
+        family="Arial, sans-serif",
+        size=20,
+        color="DarkSlateGrey"
+    )
+)
+
 
 
 ## Fig 2
@@ -146,7 +193,7 @@ fig4 = px.scatter_geo(geo_channels,
                      hover_data={"views": False, "Views": True, "Country": True, "new_long": False,
                                  "new_lat": False, "Topic": True, "Total views of the country": True},
                      title="Channel Total Views by Category and Country",
-                     # projection="natural earth",
+                     projection="natural earth",
                      )
 # fig4 = px.choropleth(country_views,
 #                      locations="countryNew",
@@ -186,4 +233,5 @@ fig4.update_layout(
 
 
 if __name__ == "__main__":
-    fig4.show()
+    fig11new.show()
+    pass

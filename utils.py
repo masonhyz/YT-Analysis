@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -5,6 +7,8 @@ from datetime import datetime
 import pycountry
 from countryinfo import CountryInfo
 import numpy as np
+import torch
+from sklearn.metrics import accuracy_score
 
 # mapping from category id to category
 number_to_category = {24: "Entertainment",
@@ -131,4 +135,35 @@ def adjust_coord(original_coord, country_size, scale_factor=0.1):
 
 def int_to_str(n):
     return '{:.3e}'.format(n)
+
+
+def evaluate_model(model, dataloader, device):
+    model.eval()  # Set the model to evaluation mode
+    true_labels = []
+    predicted_labels = []
+
+    with torch.no_grad():  # Inference mode, gradient is not computed
+        for images, labels in dataloader:
+            images = images.to(device)
+            labels = labels.to(device)
+            outputs = model(images)
+            _, predicted = torch.max(outputs.data, 1)
+            true_labels.extend(labels.cpu().numpy())
+            predicted_labels.extend(predicted.cpu().numpy())
+
+    accuracy = accuracy_score(true_labels, predicted_labels)
+    return accuracy
+
+
+def create_training_directory(base_path):
+    now = datetime.now()
+    date_time = now.strftime("%Y%m%d-%H%M%S")
+    dir_name = f"training_session_{date_time}"
+    path = os.path.join(base_path, dir_name)
+    try:
+        os.makedirs(path)
+        print(f"Directory '{path}' created")
+    except FileExistsError:
+        print(f"Directory '{path}' already exists")
+    return path
 
